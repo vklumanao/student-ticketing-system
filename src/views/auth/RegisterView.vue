@@ -6,7 +6,6 @@ const lastName = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
-const studentId = ref('')
 const errorMessage = ref('')
 
 const handleRegister = async () => {
@@ -16,8 +15,7 @@ const handleRegister = async () => {
       !lastName.value ||
       !email.value ||
       !password.value ||
-      !confirmPassword.value ||
-      !studentId.value
+      !confirmPassword.value
     ) {
       errorMessage.value = 'Please fill in all fields'
       return
@@ -62,17 +60,6 @@ const handleRegister = async () => {
               placeholder="Enter your last name"
             />
           </div>
-        </div>
-
-        <div class="form-group">
-          <label for="studentId">Student ID</label>
-          <input
-            type="text"
-            id="studentId"
-            v-model="studentId"
-            required
-            placeholder="Enter your student ID"
-          />
         </div>
 
         <div class="form-group">
