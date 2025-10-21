@@ -117,33 +117,50 @@ const handleRegister = async () => {
 
 <style scoped>
 .register-container {
+  --bg-image: url('@/assets/images/background.jpg');
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   padding: 2rem;
 }
 
+.register-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 58, 108, 0.36);
+  z-index: 1;
+}
+
 .register-card {
-  background: white;
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.96);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
   width: 100%;
   max-width: 600px;
+  border-top: 6px solid #003a6c;
 }
 
 h1 {
   text-align: center;
-  color: #333;
-  margin-bottom: 2rem;
+  color: #003a6c;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
 }
 
 .register-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .form-row {
@@ -160,34 +177,42 @@ h1 {
 
 label {
   font-weight: 600;
-  color: #444;
+  color: #003a6c;
 }
 
 input {
   padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid #e0e6ee;
+  border-radius: 6px;
   font-size: 1rem;
+  background: #fff;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 input:focus {
   outline: none;
-  border-color: #4a90e2;
+  border-color: #003a6c;
+  box-shadow: 0 0 0 4px rgba(0, 58, 108, 0.08);
 }
 
 .register-button {
-  background-color: #4a90e2;
-  color: white;
+  background-color: #003a6c;
+  color: #fff;
   padding: 0.75rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition:
+    background-color 0.15s,
+    transform 0.08s;
 }
 
 .register-button:hover {
-  background-color: #357abd;
+  background-color: #002548;
+  transform: translateY(-1px);
 }
 
 .error-message {
@@ -201,21 +226,28 @@ input:focus {
   justify-content: center;
   gap: 0.5rem;
   margin-top: 1rem;
+  align-items: center;
 }
 
 .links a {
-  color: #4a90e2;
+  color: #fdb913;
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .links a:hover {
+  color: #d99e00;
   text-decoration: underline;
 }
 
 @media (max-width: 600px) {
   .form-row {
     flex-direction: column;
+  }
+  .register-card {
+    margin: 1rem;
+    padding: 1.25rem;
   }
 }
 </style>
