@@ -79,31 +79,33 @@ const handleLogin = async () => {
   position: relative;
   z-index: 2;
   background: rgba(255, 255, 255, 0.96);
-  padding: 2rem;
+  padding: 3rem;
   border-radius: 8px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
   width: 100%;
-  max-width: 420px;
+  max-width: 600px;
   border-top: 6px solid #003a6c;
+  margin: 0 1rem;
 }
 
 h1 {
   text-align: center;
   color: #003a6c;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
   font-weight: 700;
+  font-size: 1.75rem;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.75rem;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 label {
@@ -112,10 +114,10 @@ label {
 }
 
 input {
-  padding: 0.75rem;
+  padding: 1rem;
   border: 1px solid #e0e6ee;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 1.05rem;
   background: #fff;
   transition:
     border-color 0.15s,
@@ -131,7 +133,7 @@ input:focus {
 .login-button {
   background-color: #003a6c;
   color: #fff;
-  padding: 0.75rem;
+  padding: 1rem 1.25rem;
   border: none;
   border-radius: 6px;
   font-size: 1rem;
@@ -172,10 +174,29 @@ input:focus {
   text-decoration: underline;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 900px) {
+  .login-card {
+    max-width: 620px;
+    padding: 2.5rem;
+  }
+}
+
+@media (max-width: 600px) {
   .login-card {
     margin: 1rem;
     padding: 1.25rem;
+    max-width: 100%;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+  input {
+    padding: 0.9rem;
+    font-size: 1rem;
+  }
+  .login-button {
+    padding: 0.9rem;
+    font-size: 1rem;
   }
 }
 </style>
