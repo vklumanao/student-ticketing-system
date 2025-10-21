@@ -26,18 +26,30 @@ const handleLogin = async () => {
       <form @submit.prevent="handleLogin" class="login-form">
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" v-model="email" required placeholder="Enter your email" />
+          <div class="input-group">
+            <i class="mdi mdi-email"></i>
+            <input
+              type="email"
+              id="email"
+              v-model="email"
+              required
+              placeholder="Enter your email"
+            />
+          </div>
         </div>
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            v-model="password"
-            required
-            placeholder="Enter your password"
-          />
+          <div class="input-group">
+            <i class="mdi mdi-lock"></i>
+            <input
+              type="password"
+              id="password"
+              v-model="password"
+              required
+              placeholder="Enter your password"
+            />
+          </div>
         </div>
 
         <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
@@ -172,6 +184,24 @@ input:focus {
 .links a:hover {
   color: #d99e00;
   text-decoration: underline;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-group i {
+  position: absolute;
+  left: 1rem;
+  color: #003a6c;
+  font-size: 1.25rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding-left: 3rem;
 }
 
 @media (max-width: 900px) {
