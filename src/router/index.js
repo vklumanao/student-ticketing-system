@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/system/HomeView.vue'
 import CreateTicketView from '@/views/system/CreateTicketView.vue'
 import TrackTicketView from '@/views/system/TrackTicketView.vue'
 import AdminView from '@/views/system/AdminView.vue'
@@ -11,27 +10,28 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: HomeView,
-    },
-    {
-      path: '/login',
+      name: 'login',
       component: LoginView,
     },
     {
       path: '/register',
+      name: 'register',
       component: RegisterView,
     },
     {
       path: '/create-ticket',
+      name: 'create-ticket',
       component: CreateTicketView,
     },
     {
       path: '/track/:code',
+      name: 'track-ticket',
       component: TrackTicketView,
       props: true,
     },
     {
       path: '/admin',
+      name: 'admin',
       component: AdminView,
     },
   ],

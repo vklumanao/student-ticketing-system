@@ -7,6 +7,8 @@ const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const errorMessage = ref('')
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
 
 const handleRegister = async () => {
   try {
@@ -26,7 +28,6 @@ const handleRegister = async () => {
       return
     }
 
-    // TODO: Implement actual registration logic here
     console.log('Registration attempted with:', email.value)
   } catch (error) {
     errorMessage.value = error.message
@@ -36,106 +37,102 @@ const handleRegister = async () => {
 
 <template>
   <div class="register-container">
-    <div class="register-card">
-      <h1>Create Account</h1>
-      <form @submit.prevent="handleRegister" class="register-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="firstName">First Name</label>
-            <div class="input-group">
-              <i class="mdi mdi-account"></i>
-              <input
-                type="text"
-                id="firstName"
-                v-model="firstName"
-                required
-                placeholder="Enter your first name"
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <div class="input-group">
-              <i class="mdi mdi-account"></i>
-              <input
-                type="text"
-                id="lastName"
-                v-model="lastName"
-                required
-                placeholder="Enter your last name"
-              />
-            </div>
-          </div>
-        </div>
+    <v-card class="register-card" elevation="8">
+      <v-card-title class="text-center text-h4 font-weight-bold mb-6">
+        Create Account
+      </v-card-title>
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <div class="input-group">
-            <i class="mdi mdi-email"></i>
-            <input
-              type="email"
-              id="email"
-              v-model="email"
+      <v-form @submit.prevent="handleRegister" class="register-form">
+        <v-row>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="firstName"
+              label="First Name"
+              prepend-inner-icon="mdi-account"
+              :rules="[(v) => !!v || 'First name is required']"
+              variant="outlined"
               required
-              placeholder="Enter your email"
             />
-          </div>
-        </div>
+          </v-col>
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <div class="input-group">
-            <i class="mdi mdi-lock"></i>
-            <input
-              type="password"
-              id="password"
-              v-model="password"
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="lastName"
+              label="Last Name"
+              prepend-inner-icon="mdi-account"
+              :rules="[(v) => !!v || 'Last name is required']"
+              variant="outlined"
               required
-              placeholder="Enter your password"
             />
-          </div>
+          </v-col>
+        </v-row>
+
+        <v-text-field
+          v-model="email"
+          label="Email"
+          type="email"
+          prepend-inner-icon="mdi-email"
+          :rules="[(v) => !!v || 'Email is required']"
+          variant="outlined"
+          required
+        />
+
+        <v-text-field
+          v-model="password"
+          label="Password"
+          :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="showPassword ? 'text' : 'password'"
+          prepend-inner-icon="mdi-lock"
+          :rules="[(v) => !!v || 'Password is required']"
+          variant="outlined"
+          required
+          @click:append-inner="showPassword = !showPassword"
+        />
+
+        <v-text-field
+          v-model="confirmPassword"
+          label="Confirm Password"
+          :append-inner-icon="showConfirmPassword ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="showConfirmPassword ? 'text' : 'password'"
+          prepend-inner-icon="mdi-lock-check"
+          :rules="[
+            (v) => !!v || 'Please confirm your password',
+            (v) => v === password || 'Passwords do not match',
+          ]"
+          variant="outlined"
+          required
+          @click:append-inner="showConfirmPassword = !showConfirmPassword"
+        />
+
+        <v-alert v-if="errorMessage" type="error" variant="tonal" class="mb-4">
+          {{ errorMessage }}
+        </v-alert>
+
+        <v-btn type="submit" color="#003a6c" block size="large" class="mb-4">
+          Create Account
+        </v-btn>
+
+        <div class="text-center">
+          <span>Already have an account? </span>
+          <v-btn to="/" variant="text" color="#fdb913" class="font-weight-bold"> Login here </v-btn>
         </div>
-
-        <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
-          <div class="input-group">
-            <i class="mdi mdi-lock-check"></i>
-            <input
-              type="password"
-              id="confirmPassword"
-              v-model="confirmPassword"
-              required
-              placeholder="Confirm your password"
-            />
-          </div>
-        </div>
-
-        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-
-        <button type="submit" class="register-button">Create Account</button>
-
-        <div class="links">
-          <span>Already have an account?</span>
-          <a href="#" class="login-link">Login</a>
-        </div>
-      </form>
-    </div>
+      </v-form>
+    </v-card>
   </div>
 </template>
 
 <style scoped>
 .register-container {
   --bg-image: url('@/assets/images/background.jpg');
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-image: var(--bg-image);
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  padding: 2rem;
+  padding: 1rem;
+  position: relative;
 }
 
 .register-container::before {
@@ -143,137 +140,18 @@ const handleRegister = async () => {
   position: absolute;
   inset: 0;
   background: rgba(0, 58, 108, 0.36);
-  z-index: 1;
 }
 
 .register-card {
-  position: relative;
-  z-index: 2;
-  background: rgba(255, 255, 255, 0.96);
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
   width: 100%;
-  max-width: 600px;
-  border-top: 6px solid #003a6c;
-}
-
-h1 {
-  text-align: center;
-  color: #003a6c;
-  margin-bottom: 1.5rem;
-  font-weight: 700;
+  max-width: 700px;
+  padding: 2rem;
+  position: relative;
+  border-top: 6px solid #003a6c !important;
 }
 
 .register-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.form-row {
-  display: flex;
-  gap: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  flex: 1;
-}
-
-label {
-  font-weight: 600;
-  color: #003a6c;
-}
-
-input {
-  padding: 0.75rem;
-  border: 1px solid #e0e6ee;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #fff;
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
-}
-
-input:focus {
-  outline: none;
-  border-color: #003a6c;
-  box-shadow: 0 0 0 4px rgba(0, 58, 108, 0.08);
-}
-
-.register-button {
-  background-color: #003a6c;
-  color: #fff;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition:
-    background-color 0.15s,
-    transform 0.08s;
-}
-
-.register-button:hover {
-  background-color: #002548;
-  transform: translateY(-1px);
-}
-
-.error-message {
-  color: #dc3545;
-  font-size: 0.875rem;
-  margin: 0;
-}
-
-.links {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  align-items: center;
-}
-
-.links a {
-  color: #fdb913;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.links a:hover {
-  color: #d99e00;
-  text-decoration: underline;
-}
-
-.input-group {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.input-group i {
-  position: absolute;
-  left: 1rem;
-  color: #003a6c;
-  font-size: 1.25rem;
-}
-
-.input-group input {
-  width: 100%;
-  padding-left: 3rem;
-}
-
-@media (max-width: 600px) {
-  .form-row {
-    flex-direction: column;
-  }
-  .register-card {
-    margin: 1rem;
-    padding: 1.25rem;
-  }
+  max-width: 600px;
+  margin: 0 auto;
 }
 </style>
