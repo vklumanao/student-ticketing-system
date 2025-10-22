@@ -20,7 +20,7 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <v-card-title class="text-center text-h4 font-weight-bold mb-6"> Login </v-card-title>
+  <v-card-title class="text-center text-h3 font-weight-bold mb-6"> Login </v-card-title>
   <v-form @submit.prevent="handleLogin" class="login-form">
     <v-text-field
       v-model="email"
