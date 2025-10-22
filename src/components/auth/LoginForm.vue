@@ -1,52 +1,59 @@
 <script setup>
 import { ref } from 'vue'
+import { emailValidator, requiredValidator } from '@/utils/validator'
 
-const email = ref('')
-const password = ref('')
-const errorMessage = ref('')
+const refVform = ref()
 const showPassword = ref(false)
+const errorMessage = ref('')
 
-const handleLogin = async () => {
-  try {
-    if (!email.value || !password.value) {
-      errorMessage.value = 'Please fill in all fields'
-      return
-    }
-    console.log('Login attempted with:', email.value)
-  } catch (error) {
-    errorMessage.value = error.message
-  }
+const formDataDefault = {
+  email: '',
+  password: '',
+}
+
+const formData = ref({
+  ...formDataDefault,
+})
+
+const onSubmit = () => {
+  alert(formData.value.email + ' logged in!')
+}
+
+const onFormSubmit = () => {
+  refVform.value?.validate().then(({ valid: isValid }) => {
+    if (isValid) onSubmit()
+  })
 }
 </script>
 
 <template>
   <v-card-title class="text-center text-h3 font-weight-bold mb-6"> Login </v-card-title>
-  <v-form @submit.prevent="handleLogin" class="login-form">
+  <v-form ref="refVform" @submit.prevent="onFormSubmit" class="login-form">
     <v-text-field
-      v-model="email"
+      v-model="formData.email"
       label="Email"
       type="email"
-      :rules="[(v) => !!v || 'Email is required']"
+      :rules="[requiredValidator, emailValidator]"
       prepend-inner-icon="mdi-email"
       variant="outlined"
       required
     />
 
     <v-text-field
-      v-model="password"
+      v-model="formData.password"
       label="Password"
       :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
       :type="showPassword ? 'text' : 'password'"
       prepend-inner-icon="mdi-lock"
-      :rules="[(v) => !!v || 'Password is required']"
+      :rules="[requiredValidator]"
       variant="outlined"
       required
       @click:append-inner="showPassword = !showPassword"
     />
 
-    <v-alert v-if="errorMessage" type="error" variant="tonal" class="mb-4">
+    <!-- <v-alert v-if="errorMessage" type="error" variant="tonal" class="mb-4">
       {{ errorMessage }}
-    </v-alert>
+    </v-alert> -->
 
     <v-btn type="submit" color="#003a6c" block size="large" class="mb-4"> Login </v-btn>
 
