@@ -36,6 +36,7 @@ const handleRegister = async () => {
 </script>
 
 <template>
+  <v-card-title class="text-center text-h4 font-weight-bold mb-6"> Create Account </v-card-title>
   <v-form @submit.prevent="handleRegister" class="register-form">
     <v-row>
       <v-col cols="12" sm="6">

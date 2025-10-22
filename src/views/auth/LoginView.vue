@@ -5,7 +5,6 @@ import LoginForm from '@/components/auth/LoginForm.vue'
 <template>
   <div class="login-container">
     <v-card class="login-card" elevation="8">
-      <v-card-title class="text-center text-h4 font-weight-bold mb-6"> Login </v-card-title>
       <LoginForm></LoginForm>
     </v-card>
   </div>

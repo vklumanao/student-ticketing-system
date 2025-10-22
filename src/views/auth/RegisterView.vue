@@ -5,9 +5,6 @@ import RegisterForm from '@/components/auth/RegisterForm.vue'
 <template>
   <div class="register-container">
     <v-card class="register-card" elevation="8">
-      <v-card-title class="text-center text-h4 font-weight-bold mb-6">
-        Create Account
-      </v-card-title>
       <RegisterForm></RegisterForm>
     </v-card>
   </div>
