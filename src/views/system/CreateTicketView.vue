@@ -15,7 +15,7 @@ const onTicketSubmitted = (payload) => {
 <template>
   <v-container class="pa-8 create-ticket-root">
     <v-row justify="center">
-      <v-col cols="12" md="10" lg="8">
+      <v-col cols="12" md="10" lg="12">
         <v-card class="elevated-card">
           <v-card-title class="title-row">
             <v-icon class="mr-3" color="#fdb913">mdi-ticket-outline</v-icon>

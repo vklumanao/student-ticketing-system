@@ -141,7 +141,6 @@ const emit = defineEmits(['submitted'])
 
 <style scoped>
 .ticket-form {
-  max-width: 920px;
   margin: 0 auto;
   padding: 16px 6px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(250, 250, 252, 0.98));

@@ -1,10 +1,11 @@
-<script setup></script>
+<script setup>
+import AdminDashboard from '@/components/system/AdminDashboard.vue'
+</script>
 
 <template>
-  <v-card>
-    <v-card-title>Admin Dashboard</v-card-title>
-    <v-card-text>
-      <p>Admin tools and ticket table will be placed here later.</p>
-    </v-card-text>
-  </v-card>
+  <v-container fluid class="pa-6">
+    <AdminDashboard />
+  </v-container>
 </template>
+
+<style scoped></style>
